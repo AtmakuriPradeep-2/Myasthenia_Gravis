@@ -6,6 +6,11 @@ from sqlalchemy.orm import sessionmaker
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./mg_monitoring.db")
 
+# Standardize postgres:// to postgresql:// for SQLAlchemy
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+
 
 # sqlite-specific argument: check_same_thread is only needed for SQLite databases
 if DATABASE_URL.startswith("sqlite"):
